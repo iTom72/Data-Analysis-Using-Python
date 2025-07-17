@@ -67,3 +67,76 @@ plt.show()
 - SQl remains the most demanded skill throughout the year.
 - Excel is significantly increas in demand by the end of the year, same for Python.
 - Both Python and Tableau show relative demand thoughout the year.
+
+## 3. How well do jobs pay for Different Data Roles?
+
+### Visualize Data
+
+```python
+ax = sns.boxplot(
+    data=csv_top_jobs,
+    x='salary_year_avg',
+    y='job_title_short',
+    # order=job_titles[::-1], 
+    order=job_order,
+)
+plt.xlim(0, 600000) # there's only one job with a salary above 600k so we just skip it
+plt.xlabel('Yearly Salary (USD)')
+plt.ylabel('')
+plt.title('Salary Distribution for Data Roles in the US')
+ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f'{int(x/1000)}K'))
+plt.tight_layout()
+plt.show()
+```
+### Results:
+![salary distribution](Images/salary_distribution.png)
+
+### Insights:
+- Senior data roles, such as Data Scientist and Data Engineer, tend to offer higher median salaries compared to entry-level positions like Data Analyst.
+- There is a wide salary range within each role, indicating significant variation based on experience, location, and company.
+- Most data roles have yearly salaries below $200K, with only a few outliers earning above $300K.
+
+### Highest Paid & Most Demanded Skills for Data Analysts
+
+#### Visulaize Data
+
+```python
+fig, ax = plt.subplots(2, 1)
+sns.barplot(
+    data=csv_top_paid_skills,
+    x='salary_year_avg',
+    y='job_skills',
+    ax=ax[0],
+    hue='job_skills',
+    palette='viridis'
+)
+ax[0].xaxis.set_major_formatter(FuncFormatter(lambda x, _: f'{int(x/1000)}K'))
+ax[0].set_title('Highest Paid Skills for Data Analysts in the US')
+ax[0].set_xlabel('Yearly Salary (USD)')
+ax[0].set_ylabel('')
+
+sns.barplot(
+    data=csv_top_demanded_skills,
+    x='salary_year_avg',
+    y='job_skills',
+    ax=ax[1],
+    hue='job_skills',
+    palette='viridis'
+)
+ax[1].xaxis.set_major_formatter(FuncFormatter(lambda x, _: f'{int(x/1000)}K'))
+ax[1].set_title('Most in-Demanded Skills for Data Analysts in the US')
+ax[1].set_xlabel('Yearly Salary (USD)')
+ax[1].set_ylabel('')
+ax[1].set_xlim(0, 200_000)
+
+fig.tight_layout()
+plt.show()
+```
+
+#### Results:
+![highest skills paid](Images/highest_paid_skills.png)
+
+#### Insights:
+- The top graph shows specialized technical skills such as `dplyr`, `BitBucket` and `GitLab` are associated with higher salaries all above $175K.
+- The bottom graph highlights that foundational skills like `Excel`, `SQL` are the most in-demand skills.
+- There's a clear distinction between the skills that are highest paid and those are most in-demand.
