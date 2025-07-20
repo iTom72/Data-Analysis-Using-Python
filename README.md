@@ -140,3 +140,42 @@ plt.show()
 - The top graph shows specialized technical skills such as `dplyr`, `BitBucket` and `GitLab` are associated with higher salaries all above $175K.
 - The bottom graph highlights that foundational skills like `Excel`, `SQL` are the most in-demand skills.
 - There's a clear distinction between the skills that are highest paid and those are most in-demand.
+
+## What's the most optimal skill to learn for Data Analysts?
+
+### Visualize Data
+
+```python
+ax = sns.scatterplot(
+    data=csv_plot,
+    x='skill_percent',
+    y='median_salary',
+    hue='technology',
+)
+text_list = []
+for i, r in csv_skills.iterrows():
+    text_list.append(plt.text(
+        r['skill_percent'],
+        r['median_salary'],
+        i
+    ))
+adjust_text(text_list, arrowprops=dict(arrowstyle="->", color='gray'))
+plt.title('Most Optimal Skills for Data Analyst in the US')
+plt.xlabel('Skill Percentage (%)')
+plt.ylabel('Median Salary ($)')
+ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f'{int(x)}%'))
+ax.yaxis.set_major_formatter(FuncFormatter(lambda x, _: f'${int(x/1000)}K'))
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+### Results
+![most optimal skill](Images/most_optimal_skillpng.png)*A scatter plot visulaizing the most optimal skills (high paying & high demand) for data analysts in the US.
+
+### Insights
+- The scatter plot provides a clear overview of which skills offer the best combination of high demand and high salary for Data Analysts in the US. Skills positioned in the upper right quadrant of the plot are both frequently requested by employers and associated with higher median salaries, making them particularly valuable for career advancement.
+
+- For example, technologies like Python and SQL not only appear in a large percentage of job postings but also correspond to competitive salary levels. This suggests that mastering these skills can significantly improve both job prospects and earning potential. On the other hand, some specialized tools may offer higher salaries but are less commonly required, indicating a more niche market.
+
+- Overall, focusing on skills that balance widespread demand with strong compensation—such as Python, SQL, and advanced data visualization tools—can help Data Analysts maximize their career opportunities and salary outcomes.
